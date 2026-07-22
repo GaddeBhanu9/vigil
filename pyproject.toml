@@ -1,0 +1,17 @@
+[project]
+name = "vigil-project"
+version = "0.1.0"
+description = "Autonomous AI Data Quality & Observability Platform"
+authors = [
+    {name = "GaddeBhanu9", email = "gaddebhanu111@gmail.com"}
+]
+requires-python = ">=3.13,<3.14"
+dependencies = ["fastapi (>=0.139.2,<0.140.0)", "uvicorn (>=0.51.0,<0.52.0)", "streamlit (>=1.60.0,<2.0.0)", "pandas (>=3.0.3,<4.0.0)", "numpy (>=2.5.1,<3.0.0)", "pytest (>=9.1.1,<10.0.0)", "great-expectations (>=1.19.0,<2.0.0)"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "pre-commit (>=4.6.1,<5.0.0)"
+]
