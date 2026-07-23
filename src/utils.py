@@ -1,6 +1,8 @@
 """
-Utility functions for Project VIGIL.
+Utility functions for Project VIGIL with structured logging.
 """
+
+from src.logger import logger
 
 
 def calculate_trust_score(completeness, accuracy, freshness, anomaly_score):
@@ -16,9 +18,25 @@ def calculate_trust_score(completeness, accuracy, freshness, anomaly_score):
     Returns:
         float: Weighted Data Trust Score (0-1)
     """
+    logger.info(
+        "Calculating Data Trust Score",
+        extra={
+            "extra_fields": {
+                "completeness": completeness,
+                "accuracy": accuracy,
+                "freshness": freshness,
+                "anomaly_score": anomaly_score,
+            }
+        },
+    )
+
     # Validate inputs
     for value in [completeness, accuracy, freshness, anomaly_score]:
         if not (0 <= value <= 1):
+            logger.error(
+                "Invalid input: score must be between 0 and 1",
+                extra={"extra_fields": {"invalid_value": value}},
+            )
             raise ValueError("All scores must be between 0 and 1")
 
     # Weights
@@ -37,7 +55,14 @@ def calculate_trust_score(completeness, accuracy, freshness, anomaly_score):
         + anomaly_score * weights["anomaly_score"]
     )
 
-    return round(score, 4)
+    score = round(score, 4)
+
+    logger.info(
+        "Data Trust Score calculated successfully",
+        extra={"extra_fields": {"final_score": score}},
+    )
+
+    return score
 
 
 def classify_trust_score(score):
@@ -50,11 +75,23 @@ def classify_trust_score(score):
     Returns:
         str: Category label
     """
+    logger.info(
+        "Classifying Trust Score",
+        extra={"extra_fields": {"score": score}},
+    )
+
     if score >= 0.95:
-        return "Excellent"
+        category = "Excellent"
     elif score >= 0.80:
-        return "Good"
+        category = "Good"
     elif score >= 0.60:
-        return "Fair"
+        category = "Fair"
     else:
-        return "Poor"
+        category = "Poor"
+
+    logger.info(
+        "Classification complete",
+        extra={"extra_fields": {"category": category}},
+    )
+
+    return category
