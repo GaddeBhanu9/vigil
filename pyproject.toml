@@ -6,7 +6,7 @@ authors = [
     {name = "GaddeBhanu9", email = "gaddebhanu111@gmail.com"}
 ]
 requires-python = ">=3.13,<3.14"
-dependencies = ["fastapi (>=0.139.2,<0.140.0)", "uvicorn (>=0.51.0,<0.52.0)", "streamlit (>=1.60.0,<2.0.0)", "pandas (>=3.0.3,<4.0.0)", "numpy (>=2.5.1,<3.0.0)", "pytest (>=9.1.1,<10.0.0)", "great-expectations (>=1.19.0,<2.0.0)"]
+dependencies = ["fastapi (>=0.139.2,<0.140.0)", "uvicorn (>=0.51.0,<0.52.0)", "streamlit (>=1.60.0,<2.0.0)", "pandas (>=3.0.3,<4.0.0)", "numpy (>=2.5.1,<3.0.0)", "pytest (>=9.1.1,<10.0.0)", "great-expectations (>=1.19.0,<2.0.0)", "psycopg2-binary (>=2.9.12,<3.0.0)", "sqlalchemy (>=2.0.51,<3.0.0)", "python-dotenv (>=1.2.2,<2.0.0)", "scikit-learn (>=1.9.0,<2.0.0)", "matplotlib (>=3.11.1,<4.0.0)", "seaborn (>=0.13.2,<0.14.0)", "torch (>=2.13.0,<3.0.0)", "langchain-google-genai (>=4.3.3,<5.0.0)", "google-generativeai (>=0.8.6,<0.9.0)", "google-genai (>=2.17.0,<3.0.0)", "requests (>=2.34.2,<3.0.0)", "scipy (>=1.18.0,<2.0.0)"]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -14,5 +14,6 @@ build-backend = "poetry.core.masonry.api"
 [dependency-groups]
 dev = [
     "pre-commit (>=4.6.1,<5.0.0)",
-    "pytest-cov (>=7.1.0,<8.0.0)"
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "jupyter (>=1.1.1,<2.0.0)"
 ]
