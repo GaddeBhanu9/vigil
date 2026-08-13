@@ -3,7 +3,12 @@ uvicorn[standard]
 streamlit
 pandas
 numpy
+scipy
 psycopg2-binary
 sqlalchemy
 python-dotenv
 requests
+great-expectations
+langchain
+langchain-google-genai
+google-generativeai
