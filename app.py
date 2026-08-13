@@ -13,11 +13,13 @@ if st.button("🌤️ Fetch Live Data & Recalculate Score"):
         try:
             # 1. Run the data ingestor script
             # Note: On Hugging Face, use "python" directly, not "poetry run"
+            env = os.environ.copy()
             result = subprocess.run(
                 [sys.executable, "src/data_ingestor.py"],
                 capture_output=True,
                 text=True,
-                timeout=30
+                timeout=30,
+                env=env # Pass the environment variables to the subprocess
             )
 
             if result.returncode == 0:
@@ -28,7 +30,7 @@ if st.button("🌤️ Fetch Live Data & Recalculate Score"):
                     try:
                         response = requests.post(
                             f"{API_URL}/run-validation",
-                            timeout=60
+                            timeout=120
                         )
                         if response.status_code == 200:
                             st.success("✅ Validation re-run! Refresh the page to see the new Trust Score.")
