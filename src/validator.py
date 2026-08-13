@@ -1,6 +1,3 @@
-"""
-Great Expectations validation for Project VIGIL.
-"""
 
 import os
 from dotenv import load_dotenv
