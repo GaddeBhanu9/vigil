@@ -96,11 +96,12 @@ def get_anomalies():
 
 @app.post("/run-validation")
 def trigger_validation():
-    """Trigger a new Great Expectations validation run."""
+    """Trigger a new Great Expectations validation run and save results."""
     try:
-        from src.validator import run_validation
-        result = run_validation()
-        return {"status": "success", "message": "Validation triggered", "result": result}
+        from src.reporter import run_full_report
+        # This runs validation AND saves the results to the database
+        run_full_report()
+        return {"status": "success", "message": "Validation completed and saved to database"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
