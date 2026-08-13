@@ -1,6 +1,6 @@
 import os
 import subprocess
-
+import sys
 import requests
 import streamlit as st
 
@@ -14,7 +14,7 @@ if st.button("🌤️ Fetch Live Data & Recalculate Score"):
             # 1. Run the data ingestor script
             # Note: On Hugging Face, use "python" directly, not "poetry run"
             result = subprocess.run(
-                ["python", "src/data_ingestor.py"],
+                [sys.executable, "src/data_ingestor.py"],
                 capture_output=True,
                 text=True,
                 timeout=30
