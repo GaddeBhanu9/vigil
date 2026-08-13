@@ -9,11 +9,16 @@ from dotenv import load_dotenv
 from datetime import datetime
 
 load_dotenv()
-
 def insert_live_data():
     """Fetch live weather and insert into Neon using raw SQL."""
+    # Get database URL with debug
+    database_url = os.getenv("DATABASE_URL")
+    print(f"🔍 DEBUG: DATABASE_URL found? {database_url is not None}")
+    if not database_url:
+        raise ValueError("❌ DATABASE_URL is missing in the environment!")
+    
     # Connect to database
-    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+    conn = psycopg2.connect(database_url)
     cur = conn.cursor()
 
     # Fetch live weather from Open-Meteo
@@ -21,11 +26,11 @@ def insert_live_data():
     data = requests.get(url).json()
     weather = data["current_weather"]
 
-    # Insert using raw SQL (no pandas)
+    # ✅ CORRECTED: Use double quotes for case-sensitive column names
     cur.execute("""
         INSERT INTO customers 
-        (CustomerID, Name, Gender, Age, City, Signup_Date, Last_purchase_date, 
-         purchase_amount, feedback_score, email, Phone_number, Country)
+        ("CustomerID", "Name", "Gender", "Age", "City", "Signup_Date", "Last_purchase_date", 
+         "purchase_amount", "feedback_score", "email", "Phone_number", "Country")
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """, (
         f"LIVE_{datetime.now().strftime('%Y%m%d%H%M%S')}",
@@ -46,6 +51,3 @@ def insert_live_data():
     cur.close()
     conn.close()
     print("✅ Inserted live data successfully!")
-
-if __name__ == "__main__":
-    insert_live_data()
