@@ -30,8 +30,7 @@ if st.button("🌤️ Fetch Live Data & Recalculate Score"):
                     try:
                         response = requests.post(
                             f"{API_URL}/run-validation",
-                            timeout=120
-                        )
+                            timeout=300                        )
                         if response.status_code == 200:
                             st.success("✅ Validation re-run! Refresh the page to see the new Trust Score.")
                             st.info("🔄 Click the refresh button in your browser or press F5.")
