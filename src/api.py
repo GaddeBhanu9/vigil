@@ -108,21 +108,3 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
-@app.post("/run-validation")
-def trigger_validation():
-    """Trigger a new Great Expectations validation run."""
-    try:
-        from src.reporter import run_full_report
-        run_full_report()
-        return {"status": "success", "message": "Validation completed"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-@app.post("/run-validation")
-def trigger_validation():
-    """Trigger a new Great Expectations validation run."""
-    try:
-        from src.reporter import run_full_report
-        run_full_report()
-        return {"status": "success", "message": "Validation completed successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
