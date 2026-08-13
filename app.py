@@ -5,7 +5,7 @@ import requests
 import streamlit as st
 
 # Get the API URL from environment variable (set in Hugging Face secrets)
-API_URL = os.getenv("API_URL", "http://api:8000")
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 # --- Fetch Live Data Button ---
 if st.button("🌤️ Fetch Live Data & Recalculate Score"):
@@ -33,7 +33,8 @@ if st.button("🌤️ Fetch Live Data & Recalculate Score"):
                             timeout=300                        )
                         if response.status_code == 200:
                             st.success("✅ Validation re-run! Refresh the page to see the new Trust Score.")
-                            st.info("🔄 Click the refresh button in your browser or press F5.")
+                            st.balloons()
+                            st.rerun()
                         else:
                             st.warning(f"⚠️ Validation triggered but returned status: {response.status_code}")
                     except requests.exceptions.ConnectionError:
