@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 # Import the drift detector function
 from src.drift_detector import load_and_split_data, run_drift_tests
-
+print("🚀 Starting FastAPI backend...")
 load_dotenv()
 engine = create_engine(os.getenv("DATABASE_URL"))
 
@@ -107,3 +107,13 @@ def trigger_validation():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+@app.post("/run-validation")
+def trigger_validation():
+    """Trigger a new Great Expectations validation run."""
+    try:
+        from src.reporter import run_full_report
+        run_full_report()
+        return {"status": "success", "message": "Validation completed"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
